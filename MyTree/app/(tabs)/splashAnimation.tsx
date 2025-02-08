@@ -4,6 +4,8 @@ import Animated, { Easing, useSharedValue, useAnimatedStyle, withTiming, withRep
 import * as Font from 'expo-font';
 import LottieView from "lottie-react-native";
 import animation from "../../Contree_Start_Animation.json";
+import SignInBtn from '@/components/ui/SignInBtn';
+import SignInNewBtn from '@/components/ui/SignInNewBtn';
 
 export default function AnimationWithImperativeApi() {
   const animationRef = useRef<LottieView>(null); 
@@ -131,6 +133,7 @@ visibilityAnim.value = withSequence(
             for Yourself
           </Animated.Text>
         )}
+        <SignInNewBtn/>
       </View>
     </View>
   );

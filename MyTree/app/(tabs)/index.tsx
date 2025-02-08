@@ -15,14 +15,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <TouchableOpacity
-        style={[styles.button, isPressed && styles.buttonPressed]}
-        onPressIn={() => setIsPressed(true)}
-        onPressOut={() => setIsPressed(false)}
-        onPress={() => navigation.push("/CameraScreen")}
-      >
-        <AntDesign name="camera" size={40} color="white" />
-      </TouchableOpacity>
+     <Text>Posts</Text>
     </View>
   );
 }

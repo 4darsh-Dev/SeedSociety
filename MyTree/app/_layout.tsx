@@ -2,7 +2,7 @@ import { Stack } from "expo-router";
 import CustomSplashScreen from '@/components/ui/customSplashScreen';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
-import CameraScreen from './CameraScreen';
+import ClickPic from './(tabs)/ClickPic';
 export default function RootLayout() {
   const [isAppReady, setAppReady] = useState(false);
 
@@ -12,7 +12,6 @@ export default function RootLayout() {
       await performSomeTask();
       setAppReady(true);
     }
-
     prepare();
   }, []);
 
@@ -25,9 +24,11 @@ export default function RootLayout() {
   if (!isAppReady) {
     return <CustomSplashScreen />;
   }
-  return <Stack>
+  return <>
+  <Stack>
   <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-  <Stack.Screen name="CameraScreen"  options={{ headerShown: false }} />
+  <Stack.Screen name="ClickPic"  options={{ headerShown: false }} />
   {/* <Stack.Screen name="+not-found" /> */}
-</Stack>;
+</Stack>
+</>
 }
