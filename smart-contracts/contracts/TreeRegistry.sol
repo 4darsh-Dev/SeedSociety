@@ -17,7 +17,7 @@ contract TreeRegistry is AccessControl {
     struct TreeRecord {
         uint256 userId; // userid from psql who planted the tree
         uint256 treeId; 
-        uint256 plantationDate; // Timestam
+        string plantationDate; // Timestam
         string latitude; 
         string longitude; 
     }
@@ -29,7 +29,7 @@ contract TreeRegistry is AccessControl {
     EnumerableSet.UintSet private _treeIds;
 
     // event on tree addition
-    event TreeAdded(uint256 indexed treeId, uint256 indexed userId, uint256 plantationDate);
+    event TreeAdded(uint256 indexed treeId, uint256 indexed userId, string plantationDate);
 
   
     constructor() {
@@ -51,7 +51,7 @@ contract TreeRegistry is AccessControl {
     function addTreeRecord(
         uint256 userId,
         uint256 treeId,
-        uint256 plantationDate,
+        string memory plantationDate,
         string memory latitude,
         string memory longitude
     ) external onlyPlanter {
@@ -76,7 +76,7 @@ contract TreeRegistry is AccessControl {
     // Function to get tree data by treeId
     function getTreeRecord(uint256 treeId) external view returns (
         uint256 userId,
-        uint256 plantationDate,
+        string memory plantationDate,
         string memory latitude,
         string memory longitude
     ) {
