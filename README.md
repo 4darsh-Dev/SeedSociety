@@ -1,47 +1,120 @@
-# Community-Tree
-Connecting Ethusiastsic Tree planters and carers from different part of the world in go green movement with Powerful AI tools
+# 🌳 SeedSociety  - A Gamified Tree Community 
 
-## Roadmap
-### UI & UX 
-1. react native mobile app 
-2. design : ...
-3. pages ( home, feed, /explore, /userAuth, /)
+## 📋 Table of Contents
 
-### Backend
-1. Express JS server with Redis Message broker
-2. Gmpas API integeration
-3. MLApps integerations with flask/ gradio backend for running LLMs/ Image models
-4. DB Supabase integeration with prisma ORM.
+1. [About the Project](#about-the-project)
+2. [Problem Statement](#problem-statement)
+3. [Impact](#impact)
+4. [Solution Approach](#solution-approach)
+5. [Tech Stack](#tech-stack)
+6. [Features](#features)
+   - [Mobile App](#mobile-app)
+   - [Web Application](#web-application)
+7. [Installation & Setup](#installation--setup)
+   - [Local Setup](#local-setup)
+8. [Screenshots](#screenshots)
+9. [Acknowledgement](#acknowledgement)
 
+## 🌍 About the Project
 
-### AI and ML
-1. Plantation detection model (video (3s))
-2. Tree species detection model with leafs
-3. Watering detection (soil moisture) through image ( ++ Rainy season)
+Tree Health Monitoring is a gamified community initiative designed to make tree plantation and care an engaging and rewarding experience. Leveraging cutting-edge AI and Blockchain technologies, we aim to reconnect the younger generation with nature and promote environmental sustainability.
 
-### Point & Badging system
-1. 
+## 🚩 Problem Statement
 
+In urban and semi-urban areas of Delhi, the responsibility of planting and caring for trees often falls solely on the government and NGOs. Our research highlights key issues:
 
-### Learning Materials:
-1. Visual 3d animated content Generated from text to video models (blackforest-flux dev) oss
-2. 
+- Lack of motivation, time, and space due to busy lifestyles
+- Limited connection with environmental organizations
+- Absence of community events and regular meetups
+- No system for tree health monitoring or recognition for environmental contributions
 
-### Addn
-1. Geo tagging plants, indentification
-2. Bringing Teens + retired people + .. (target audience)
-3. NGO and volunteer orgs which can onbard customers with credibility (USER ROLE (RBAC))
+## 🌱 Impact
 
-## Features 
-1. Planting trees with person #id tagging
-2. Watering trees based reward system
-3. Identify species + learning sources ( how you gamify the learning process)
-4. 
+We envision crushed numbers in terms of:
 
+- Increased community participation
+- Improved tree health monitoring
+- Reduction in barren lands through reforestation
 
-## Tech STack
-...
+## 💡 Solution Approach
 
+Our solution focuses on a global, community-driven initiative:
 
+- **Gamification:** Inspired by Pokemon GO, users earn rewards for activities like planting, watering, and pest detection.
+- **Blockchain Integration:** Activities are tracked and rewarded with tokens redeemable for forest produce.
+- **AI & GIS:** AI models for tree health monitoring and GIS for identifying plantable areas.
+- **Green Library:** Exchange old books for plants to promote green living.
+
+## 🛠 Tech Stack
+
+- **Frontend:** React, Flutter
+- **Backend:** Node.js, Express
+- **Database:** Postregs
+- **Blockchain:** Ethereum, Smart Contracts
+- **AI/ML:** Pytorch, OpenCV
+- **GIS:** Satellite Imagery APIs
+
+## 🚀 Features
+
+### 📱 Mobile App
+
+- User Registration & Workflow
+- Geo-tagging of Trees
+- ML Model for Tree Health Detection
+- Tree Listings on Campus Maps
+- Blockchain Traceability with 3D & 2D Views
+- Learning Resources Integration
+
+### 💻 Web Application
+
+- Home Page with Geotagging Features
+- Corporate Dashboard for ESG & CSR Reporting
+- Real-Time Tree Health Monitoring
+- Impact Statistics & Analytics
+- Reward Point Collection & Token Conversion
+- Token Redemption for Forest Produce
+
+## ⚙️ Installation & Setup
+
+### 🖥 Local Setup
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/4darsh-Dev/SeedSociety.git
+   cd SeedSociety
+   ```
+
+2. **Backend Setup:**
+
+   ```bash
+   cd backend
+   npm i
+   node app.js
+   ```
+
+3. **Frontend Setup:**
+
+   ```bash
+   cd frontend
+   npm i
+   npm run dev
+   ```
+
+4. **Mobile App Setup:**
+
+   ```bash
+   cd MyTree
+   npm i
+   npx expo start
+   ```
+
+5. **Environment Variables:** Create a `.env` file with necessary API keys and credentials.
+
+## 📸 Screenshots
+
+*Add screenshots of the mobile app and web application showcasing key features like user dashboard, tree health monitoring, and blockchain tracking.*
+
+## 🤝 Acknowledgement
 
 
