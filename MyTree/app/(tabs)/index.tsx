@@ -2,6 +2,7 @@ import { useRoute } from '@react-navigation/native';
 import { useNavigation, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 export default function Index() {
   const [isPressed, setIsPressed] = useState(false);
@@ -20,7 +21,7 @@ export default function Index() {
         onPressOut={() => setIsPressed(false)}
         onPress={() => navigation.push("/CameraScreen")}
       >
-        <Text style={styles.buttonText}>Click a Pic</Text>
+        <AntDesign name="camera" size={40} color="white" />
       </TouchableOpacity>
     </View>
   );

@@ -1,18 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, StyleSheet, Text, Animated } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
+import Animated, { Easing, useSharedValue, useAnimatedStyle, withTiming, withRepeat, withSequence, runOnJS } from 'react-native-reanimated';
 import * as Font from 'expo-font';
 import LottieView from "lottie-react-native";
 import animation from "../../Contree_Start_Animation.json";
 
 export default function AnimationWithImperativeApi() {
   const animationRef = useRef<LottieView>(null); 
-  const [textOpacity] = useState(new Animated.Value(0));
-  const [fontsLoaded, setFontsLoaded] = useState(false);
+  const textOpacity = useSharedValue(0);
   
-  const rotateAnim = useRef(new Animated.Value(0)).current;
-  const opacityText1 = useRef(new Animated.Value(1)).current;
-  const opacityText2 = useRef(new Animated.Value(0)).current;
-  const [showText2, setShowText2] = useState(false);
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  const rotateAnim1 = useSharedValue(0);
+  const rotateAnim2 = useSharedValue(1);
+  const visibilityAnim = useSharedValue(0);
+  const opacityText1 = useSharedValue(0);
+  const opacityText2 = useSharedValue(0);
 
   useEffect(() => {
     async function loadFonts() {
@@ -23,48 +25,65 @@ export default function AnimationWithImperativeApi() {
     }
 
     loadFonts();
-    textOpacity.setValue(0);
-    rotateAnim.setValue(0);
-    opacityText1.setValue(1);
-    opacityText2.setValue(0);
-    setShowText2(false);
+    textOpacity.value = 0;
+    rotateAnim1.value = 0;
+    opacityText1.value = 0;
+    opacityText2.value = 0;
+  visibilityAnim.value = 0;
+    console.log('Animation Loaded');
     animationRef.current?.play(0, 38);
+    console.log('Animation Played');
   }, []);
-
+  // const toggleTextVisibility = () => {
+  //   setShowText2((prev) => !prev);
+  // }
   const handleAnimationFinish = () => {
     console.log('Animation Finished');
     // Animate the opacity of the text to 1
-    Animated.sequence([
-      Animated.timing(textOpacity, {
-        toValue: 1,
-        duration: 1000,
-        useNativeDriver: true,
-      }),
-      Animated.parallel([
-        Animated.timing(rotateAnim, {
-          toValue: 1,
-          duration: 1000,
-          useNativeDriver: true,
-        }),
-        Animated.timing(opacityText1, {
-          toValue: 0,
-          duration: 1000,
-          useNativeDriver: true,
-        }),
-      ]),
-      Animated.timing(opacityText2, {
-        toValue: 1,
-        duration: 1000,
-        useNativeDriver: true,
-      }),
-    ]).start(() => {
-      setShowText2(true);
-    });
+    textOpacity.value = withTiming(1, { duration: 1000 });
+opacityText1.value = withTiming(1, { duration: 1000 });
+
+// Animate the rotation of text1 to 180 degrees after a 1-second delay
+rotateAnim1.value = withSequence(
+  withTiming(0, { duration: 0 }), // Ensure it starts from 0
+  withTiming(0, { duration: 1000 }), // Delay of 1 second
+  withTiming(1, { duration: 1000 }) // Rotate to 180 degrees
+);
+
+// Run the second set of animations after the first sequence
+opacityText1.value = withSequence(
+  withTiming(1, { duration: 2000 }), // Wait for the first sequence to complete
+  withTiming(0, { duration: 1000 }) // Animate opacityText1 to 0
+);
+
+opacityText2.value = withSequence(
+  withTiming(1, { duration: 2000 }), // Wait for the first sequence to complete
+  withTiming(1, { duration: 1000 }) // Animate opacityText2 to 1
+);
+
+visibilityAnim.value = withSequence(
+  withTiming(1, { duration: 2000 }), // Wait for the first sequence to complete
+  withTiming(1, { duration: 1000 }) // Animate visibilityAnim to 1
+);
   };
 
-  const rotateInterpolate = rotateAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['0deg', '180deg'],
+  const animatedTextStyle = useAnimatedStyle(() => {
+    return {
+      opacity: textOpacity.value,
+    };
+  });
+
+  const animatedText1Style = useAnimatedStyle(() => {
+    return {
+      opacity: opacityText1.value,
+      transform: [{ rotateX: `${rotateAnim1.value * 180}deg` }],
+    };
+  });
+  const animatedText2Style = useAnimatedStyle(() => {
+    return {
+      opacity: opacityText2.value,
+      transform: [{ rotateX: `${rotateAnim2.value * 180}deg` }],
+    };
   });
 
   if (!fontsLoaded) {
@@ -81,36 +100,32 @@ export default function AnimationWithImperativeApi() {
         speed={0.4}
         onAnimationFinish={handleAnimationFinish}
       />
-      <Animated.Text style={[styles.textLarge, { opacity: textOpacity }]}>
-        CONTREE
+      <Animated.Text style={[styles.textLarge,animatedTextStyle]}>
+        CONTRE
       </Animated.Text>
       <View style={{ display: 'flex', flexDirection: 'row' }}>
         <Animated.Text style={[styles.textSmall, { opacity: textOpacity }]}>
           Contribution {''}
         </Animated.Text>
-        {!showText2 && (
+        {visibilityAnim.value===0  && (
           <Animated.Text
             style={[
               styles.textSmall,
-              {
-                opacity: opacityText1,
-                transform: [{ rotateX: rotateInterpolate }],
-              },
+              animatedText1Style
             ]}
           >
             toward Trees
           </Animated.Text>
         )}
-        {showText2 && (
+        {visibilityAnim.value ===1 && (
           <Animated.Text
             style={[
               styles.textSmall,
               {
-                opacity: opacityText2,
                 backgroundColor: '#147530',
                 color: 'white',
                 paddingHorizontal: 5,
-              },
+              },animatedText2Style
             ]}
           >
             for Yourself

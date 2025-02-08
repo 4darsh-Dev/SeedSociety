@@ -1,7 +1,7 @@
 import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
 import { Image } from 'expo-image'
 import { useRef, useState } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions,Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Entypo from '@expo/vector-icons/Entypo';
 
@@ -40,10 +40,10 @@ export default function App() {
     <View style={styles.container}>
       <CameraView style={styles.camera} facing={facing} ref={cameraRef}>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={takePic}>
-          <Entypo name="circle" size={50} color="white" />
+          <TouchableOpacity style={styles.shutter} onPress={takePic}>
+          <Entypo name="circle" size={60} color="white" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
+          <TouchableOpacity style={styles.switch} onPress={toggleCameraFacing}>
             <MaterialIcons name="cameraswitch" size={24} color="white" />
           </TouchableOpacity>
         </View>
@@ -52,31 +52,38 @@ export default function App() {
     </View>
   );
 }
-
+const screenWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
+    display:'flex',
+    flex:1
   },
   message: {
     textAlign: 'center',
     paddingBottom: 10,
   },
   camera: {
+    display:'flex',
     flex: 1,
   },
   buttonContainer: {
-    flex: 1,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    width:screenWidth,
     flexDirection: 'row',
-    backgroundColor: 'transparent',
-    margin: 64,
+    marginBottom: 100,
     alignItems:'center',
     justifyContent:'center',
+    // gap:50,
   },
-  button: {
-    flex: 1,
-    alignSelf: 'flex-end',
-    alignItems: 'center',
+  switch: {
+    position: 'absolute',
+    right: 60,
+  },
+  shutter: {
+    position: 'absolute',
+    alignSelf: 'center',
   },
   text: {
     fontSize: 24,
