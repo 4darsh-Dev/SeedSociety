@@ -15,7 +15,7 @@ contract TreeRegistry is AccessControl {
 
     // Struct to store tree data
     struct TreeRecord {
-        address userId; // Address of the user who planted the tree
+        uint256 userId; // userid from psql who planted the tree
         uint256 treeId; 
         uint256 plantationDate; // Timestam
         string latitude; 
@@ -29,11 +29,11 @@ contract TreeRegistry is AccessControl {
     EnumerableSet.UintSet private _treeIds;
 
     // event on tree addition
-    event TreeAdded(uint256 indexed treeId, address indexed userId, uint256 plantationDate);
+    event TreeAdded(uint256 indexed treeId, uint256 indexed userId, uint256 plantationDate);
 
   
     constructor() {
-        _setupRole(ADMIN_ROLE, msg.sender); // Grant admin role
+        _grantRole(ADMIN_ROLE, msg.sender); // Grant admin role
         _setRoleAdmin(PLANTER_ROLE, ADMIN_ROLE); 
     }
 
@@ -49,7 +49,7 @@ contract TreeRegistry is AccessControl {
     }
 
     function addTreeRecord(
-        address userId,
+        uint256 userId,
         uint256 treeId,
         uint256 plantationDate,
         string memory latitude,
@@ -75,7 +75,7 @@ contract TreeRegistry is AccessControl {
 
     // Function to get tree data by treeId
     function getTreeRecord(uint256 treeId) external view returns (
-        address userId,
+        uint256 userId,
         uint256 plantationDate,
         string memory latitude,
         string memory longitude
