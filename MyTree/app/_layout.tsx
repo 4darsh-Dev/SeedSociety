@@ -1,34 +1,44 @@
-import { Stack } from "expo-router";
-import CustomSplashScreen from '@/components/ui/customSplashScreen';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect, useState } from 'react';
-import ClickPic from './(tabs)/ClickPic';
+import { Stack, useRouter } from "expo-router";
+import CustomSplashScreen from "@/components/ui/customSplashScreen";
+import { useEffect, useState } from "react";
+import "../global.css";
+import auth from "@react-native-firebase/auth";
+import { AppProvider } from './context/AppContext';
+
 export default function RootLayout() {
   const [isAppReady, setAppReady] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null); // Start with null
+  const router = useRouter();
 
   useEffect(() => {
-    async function prepare() {
-      // Pre-load any resources or data that we need prior to rendering the app
-      await performSomeTask();
+    const unsubscribe = auth().onAuthStateChanged((user) => {
+      console.log("User:", user);
+      setIsAuthenticated(!!user);
       setAppReady(true);
-    }
-    prepare();
+    });
+
+    return unsubscribe; // Cleanup on unmount
   }, []);
 
-  async function performSomeTask() {
-    // Simulate a task by waiting for 2 seconds
-    return new Promise(resolve => setTimeout(resolve, 5000));
-  }
+  useEffect(() => {
+    if (isAuthenticated === null) return; // Don't navigate until we know the auth state
 
+    if (isAuthenticated) {
+      router.replace("/(tabs)"); // Use replace instead of push to prevent going back to intro
+    } else {
+      router.replace("/(intro)");
+    }
+  }, [isAuthenticated]);
 
   if (!isAppReady) {
     return <CustomSplashScreen />;
   }
-  return <>
-  <Stack>
-  <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-  <Stack.Screen name="ClickPic"  options={{ headerShown: false }} />
-  {/* <Stack.Screen name="+not-found" /> */}
-</Stack>
-</>
+
+  return (
+    <AppProvider>
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="+not-found" />
+    </Stack>
+    </AppProvider>
+  );
 }

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "971432129340",
+    "project_id": "contree-71879",
+    "storage_bucket": "contree-71879.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:971432129340:android:5ece2e22d7d86a19c82439",
+        "android_client_info": {
+          "package_name": "com.anonymous.MyTree"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "971432129340-uv811nvumrdkkjl7tncigpb2jclsr0rh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anonymous.MyTree",
+            "certificate_hash": "cb35a7b907908b7fece10a64d8bf88358bc6a22d"
+          }
+        },
+        {
+          "client_id": "971432129340-2p2q40iuj7re0gthutd7ehul7ddt3qtl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAC9cPkwqxM_yL_y3Ur2CFdVAX7VXWP2nk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "971432129340-2p2q40iuj7re0gthutd7ehul7ddt3qtl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
