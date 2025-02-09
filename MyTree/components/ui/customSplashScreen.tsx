@@ -26,7 +26,6 @@ export default function CustomSplashScreen() {
     prepare();
   }, []);
   const handleAnimationFinish = () => {
-    console.log('Animation Finished');
     // Animate the opacity of the text to 1
     Animated.timing(textOpacity, {
       toValue: 1,

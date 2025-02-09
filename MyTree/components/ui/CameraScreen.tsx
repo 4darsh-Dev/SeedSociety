@@ -1,18 +1,19 @@
-import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
-import { Image } from 'expo-image'
+import { CameraView, CameraType, useCameraPermissions, CameraCapturedPicture } from 'expo-camera';
 import React, { useRef, useState } from 'react';
 import { Dimensions,Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Entypo from '@expo/vector-icons/Entypo';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 interface CameraScreenProps {
   getCurrentLocation: () => Promise<void>;
+  setPhotoUri:(photo: string | null) => void;
+  setPhoto: (photo: CameraCapturedPicture | null) => void;
 }
-const CameraScreen:React.FC<CameraScreenProps> =({getCurrentLocation})=> {
+const CameraScreen:React.FC<CameraScreenProps> =({getCurrentLocation, setPhotoUri, setPhoto})=> {
  
   //Camera Setup
   const [facing, setFacing] = useState<CameraType>('back');
-  const [photo,setPhoto] = useState<string | null>(null);
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef<CameraView>(null);
   if (!permission) {
@@ -38,11 +39,13 @@ const CameraScreen:React.FC<CameraScreenProps> =({getCurrentLocation})=> {
       const photo = await cameraRef.current.takePictureAsync();
       console.log(photo);
       if (photo && photo.uri) {
-        setPhoto(photo.uri);
+        setPhoto(photo)
+        setPhotoUri(photo.uri);
       }
       getCurrentLocation()
     }
   };
+  
   return (
     <>
       <CameraView style={styles.camera} facing={facing} ref={cameraRef}>
@@ -55,7 +58,7 @@ const CameraScreen:React.FC<CameraScreenProps> =({getCurrentLocation})=> {
           </TouchableOpacity>
         </View>
       </CameraView>
-      {photo && <Image source={{ uri: photo }} style={styles.image}/>}
+      
       </>
 );
 }
@@ -97,14 +100,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
   },
-  image: {
-    position:'absolute',
-    bottom:0,
-    right: 10,
-    width: 200,
-    height: 200,
-    marginTop: 20,
-    alignSelf: 'center',
-  },
+ 
 });
 export default CameraScreen;

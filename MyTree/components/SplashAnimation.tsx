@@ -3,11 +3,11 @@ import { View, StyleSheet, Text } from 'react-native';
 import Animated, { Easing, useSharedValue, useAnimatedStyle, withTiming, withRepeat, withSequence, runOnJS } from 'react-native-reanimated';
 import * as Font from 'expo-font';
 import LottieView from "lottie-react-native";
-import animation from "../../Contree_Start_Animation.json";
+import animation from "../Contree_Start_Animation.json";
 import SignInBtn from '@/components/ui/SignInBtn';
 import SignInNewBtn from '@/components/ui/SignInNewBtn';
 
-export default function AnimationWithImperativeApi() {
+export default function SplashAnimation() {
   const animationRef = useRef<LottieView>(null); 
   const textOpacity = useSharedValue(0);
   
@@ -133,7 +133,7 @@ visibilityAnim.value = withSequence(
             for Yourself
           </Animated.Text>
         )}
-        <SignInNewBtn/>
+        <SignInBtn/>
       </View>
     </View>
   );
